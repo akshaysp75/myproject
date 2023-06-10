@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drag And Drop</title>
+    <style>
+      /* CSS styles */
+
+      body {
+        margin: 0px;
+      }
+
+      .bg-container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: lightblue;
+      }
+
+      .div1 {
+        width: 100%;
+        height: 150px;
+        padding: 10px;
+        border: 1px solid black;
+        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 8px;
+        background-color: black;
+        color: white;
+        border-radius: 8px;
+      }
+
+      .image {
+        width: 280px;
+        height: 150px;
+      }
+
+      .heading {
+        font-size: 20px;
+        font-family: "Roboto";
+        text-align: center;
+      }
+
+      /* Media queries for different screen sizes */
+
+      @media (min-width: 768px) {
+        .div1 {
+          width: calc(60% - 20px);
+        }
+      }
+
+      @media (width: 576px) {
+        .image {
+          width: 550px;
+          height: 150px;
+        }
+      }
+
+      @media (min-width: 992px) {
+        .image {
+          width: 500px;
+          height: 150px;
+        }
+
+        .heading {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HTML content -->
+
+    <div class="bg-container">
+      <h1 class="heading">Image Drag and Drop in boxes</h1>
+      <div class="div1" ondrop="dragDrop(event)" ondragover="allowDrop(event)">
+        <!-- Image to be dragged -->
+        <img
+          src="https://img.freepik.com/free-vector/website-development-banner_33099-1687.jpg"
+          id="drag1"
+          class="image"
+          draggable="true"
+          ondragstart="dragStart(event)"
+        />
+      </div>
+      <br />
+      <div
+        class="div1"
+        ondrop="dragDrop(event)"
+        ondragover="allowDrop(event)"
+      ></div>
+      <br />
+      <button onclick="reset()">Reset</button>
+    </div>
+
+    <script>
+      // JavaScript functions
+
+      function allowDrop(e) {
+        e.preventDefault();
+      }
+
+      function dragStart(e) {
+        e.dataTransfer.setData("text", e.target.id);
+      }
+
+      function dragDrop(e) {
+        e.preventDefault();
+        var data = e.dataTransfer.getData("text");
+        e.target.appendChild(document.getElementById(data));
+      }
+
+      function reset() {
+        // Reset function to move the image back to the first container
+
+        var dragItem = document.getElementById("drag1");
+        var container1 = document.getElementsByClassName("div1")[0];
+        var container2 = document.getElementsByClassName("div1")[1];
+
+        // Clear the contents of both containers
+        container1.innerHTML = "";
+        container2.innerHTML = "";
+
+        // Move the image back to the first container
+        container1.appendChild(dragItem);
+      }
+    </script>
+  </body>
+</html>
