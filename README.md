@@ -7,5 +7,3 @@
 - drop image
 - button reset image
 # myproject
-# myproject
-# myproject
